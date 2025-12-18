@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manim Web Renderer</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar glass-panel">
+            <div class="logo-area">
+                <i class="fa-solid fa-film"></i>
+                <h1>Manim<span>Web</span></h1>
+            </div>
+
+            <div class="control-group">
+                <label data-i18n="input_script_label">Entrada de Script</label>
+                <div class="input-tabs">
+                    <button class="tab-btn active" data-tab="upload" data-i18n="tab_file">Archivo</button>
+                    <button class="tab-btn" data-tab="editor" data-i18n="tab_code">Código</button>
+                </div>
+
+                <div id="tab-upload" class="tab-content active">
+                    <div class="file-drop-area" id="drop-area">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <p data-i18n="drag_drop_text">Arrastra tu .py aquí</p>
+                        <input type="file" id="fileElem" accept=".py" style="display:none">
+                    </div>
+                    <div id="file-name-display" class="file-name hidden">None</div>
+                </div>
+
+                <div id="tab-editor" class="tab-content">
+                    <textarea id="code-editor" placeholder="Pega tu código de Manim aquí..."
+                        spellcheck="false"></textarea>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label data-i18n="render_options_label">Opciones Render</label>
+                <div class="checkbox-wrapper">
+                    <input type="checkbox" id="vertical-check">
+                    <label for="vertical-check" data-i18n="vertical_option">Vertical (9:16)</label>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label data-i18n="render_quality_label">Calidad Render</label>
+                <select id="quality-select">
+                    <option value="-ql" data-i18n="quality_low">Baja (480p, 15fps)</option>
+                    <option value="-qm" selected data-i18n="quality_medium">Media (720p, 30fps)</option>
+                    <option value="-qh" data-i18n="quality_high">Alta (1080p, 60fps)</option>
+                    <option value="-qk" data-i18n="quality_4k">4K (2160p, 60fps)</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label data-i18n="extra_options_label">Opciones Extra</label>
+                <div class="checkbox-wrapper">
+                    <input type="checkbox" id="preview-check" checked>
+                    <label for="preview-check" data-i18n="preview_auto_option">Preview Automática (-p)</label>
+                </div>
+                <div class="checkbox-wrapper">
+                    <input type="checkbox" id="transparent-check">
+                    <label for="transparent-check" data-i18n="transparent_option">Fondo Transparente (-t)</label>
+                </div>
+            </div>
+
+            <button id="render-btn" class="primary-btn" data-i18n="render_button">
+                <i class="fa-solid fa-play"></i> RENDERIZAR
+            </button>
+
+            <div id="status-indicator" class="status-box hidden">
+                <div class="spinner"></div>
+                <span data-i18n="processing_status">Procesando...</span>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Console / Logs -->
+            <section class="console-panel glass-panel">
+                <div class="panel-header">
+                    <i class="fa-solid fa-terminal"></i>
+                    <h2 data-i18n="terminal_output_title">Terminal Output</h2>
+                    <div class="window-controls">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                    </div>
+                </div>
+                <div class="console-body" id="console-logs">
+                    <div class="log-line system" data-i18n="system_ready_log">> Sistema listo. Esperando comandos...
+                    </div>
+                </div>
+            </section>
+
+            <!-- Preview Area -->
+            <section class="preview-panel glass-panel">
+                <div class="panel-header">
+                    <i class="fa-solid fa-eye"></i>
+                    <h2 data-i18n="preview_title">Vista Previa</h2>
+                </div>
+                <div class="video-container" id="video-wrapper">
+                    <div class="placeholder-text">
+                        <i class="fa-solid fa-video-slash"></i>
+                        <p data-i18n="no_video_rendered_placeholder">No hay video renderizado aún</p>
+                    </div>
+                    <video id="result-video" controls class="hidden">
+                        Tu navegador no soporta video HTML5.
+                    </video>
+                    <img id="result-image" class="hidden"
+                        style="max-width: 100%; max-height: 100%; object-fit: contain;">
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="/static/app.js?v=3"></script>
+</body>
+
+</html>

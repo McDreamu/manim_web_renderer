@@ -1,0 +1,373 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Montserrat:wght@400;600;800&display=swap');
+
+:root {
+    --bg-dark: #000000;
+    --panel-bg: #111111;
+    --text-primary: #EEEFF0;
+
+    /* Neon Palette extracted from Python script */
+    --neon-yellow: #FFE066;
+    --neon-blue: #4A90E2;
+    --neon-cyan: #00F0FF;
+    --neon-pink: #FF6B9D;
+    --neon-green: #00D4AA;
+    --neon-red: #FF3333;
+
+    --border-color: #333;
+    --glow-strength: 0px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    font-family: 'Montserrat', sans-serif;
+    min-height: 100vh;
+    overflow-y: auto;
+    /* Enable vertical scroll for the whole page */
+    /* Cyber grid background */
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+.app-container {
+    display: flex;
+    min-height: 100vh;
+    /* Allow growing */
+    border-top: 2px solid var(--neon-cyan);
+}
+
+/* Sidebar */
+.sidebar {
+    width: 320px;
+    background: var(--panel-bg);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-shadow: 5px 0 20px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+}
+
+.logo-area {
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.logo-area h1 {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 800;
+    font-size: 1.8rem;
+    color: var(--neon-cyan);
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+    letter-spacing: -1px;
+}
+
+.control-group {
+    margin-bottom: 25px;
+}
+
+.control-group label {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--neon-pink);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Tabs */
+.input-tabs {
+    display: flex;
+    margin-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.tab-btn {
+    flex: 1;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: #666;
+    padding: 8px;
+    cursor: pointer;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    transition: 0.2s;
+}
+
+.tab-btn:hover {
+    color: #fff;
+}
+
+.tab-btn.active {
+    color: var(--neon-cyan);
+    border-bottom-color: var(--neon-cyan);
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Drop Area */
+.file-drop-area {
+    border: 2px dashed var(--border-color);
+    background: #0a0a0a;
+    padding: 30px 10px;
+    text-align: center;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.file-drop-area:hover,
+.file-drop-area.dragover {
+    border-color: var(--neon-blue);
+    background: rgba(74, 144, 226, 0.1);
+    box-shadow: inset 0 0 15px rgba(74, 144, 226, 0.2);
+}
+
+.file-drop-area i {
+    font-size: 2rem;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+}
+
+.file-name {
+    margin-top: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--neon-yellow);
+    word-break: break-all;
+}
+
+/* Editor */
+#code-editor {
+    width: 100%;
+    height: 200px;
+    background: #0a0a0a;
+    border: 1px solid var(--border-color);
+    color: #00ff00;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    padding: 10px;
+    resize: vertical;
+    outline: none;
+}
+
+#code-editor:focus {
+    border-color: var(--neon-cyan);
+}
+
+/* Inputs */
+select {
+    width: 100%;
+    background: #000;
+    color: #fff;
+    border: 1px solid var(--border-color);
+    padding: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    outline: none;
+    cursor: pointer;
+}
+
+select:focus {
+    border-color: var(--neon-green);
+}
+
+.checkbox-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.checkbox-wrapper input {
+    accent-color: var(--neon-pink);
+}
+
+.checkbox-wrapper label {
+    color: #ccc;
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-transform: none;
+    margin-bottom: 0;
+}
+
+/* Button */
+.primary-btn {
+    width: 100%;
+    padding: 15px;
+    margin-top: auto;
+    background: transparent;
+    border: 2px solid var(--neon-cyan);
+    color: var(--neon-cyan);
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 0.2s;
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.1);
+}
+
+.primary-btn:hover {
+    background: var(--neon-cyan);
+    color: #000;
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.6);
+}
+
+.primary-btn:disabled {
+    border-color: #555;
+    color: #555;
+    cursor: not-allowed;
+    box-shadow: none;
+    background: transparent;
+}
+
+.status-box {
+    margin-top: 15px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    color: var(--neon-yellow);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: #050505;
+}
+
+/* Console */
+.console-panel {
+    flex: 0 0 350px;
+    /* Fixed sized, don't grow or shrink */
+    background: #000;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    height: 350px;
+    overflow: hidden;
+    /* Container fixed */
+}
+
+.panel-header {
+    background: var(--panel-bg);
+    padding: 10px 20px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.panel-header i {
+    color: var(--neon-pink);
+}
+
+.panel-header h2 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    color: #888;
+    text-transform: uppercase;
+}
+
+.console-body {
+    flex: 1;
+    padding: 15px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    overflow-y: auto;
+    color: #bbb;
+}
+
+.log-line {
+    margin-bottom: 5px;
+    word-wrap: break-word;
+}
+
+.log-line.system {
+    color: var(--neon-green);
+}
+
+.log-line.error {
+    color: var(--neon-red);
+}
+
+.log-line.info {
+    color: var(--neon-blue);
+}
+
+/* Preview */
+.preview-panel {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    background: #000;
+    overflow: visible;
+    /* Let it expand */
+}
+
+.video-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+    position: relative;
+    /* Grid background specifically for preview area */
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+.placeholder-text {
+    text-align: center;
+    color: #444;
+}
+
+.placeholder-text i {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--neon-blue);
+}
